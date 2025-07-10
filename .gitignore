@@ -2,4 +2,9 @@ download/
 .DS_Store
 __pycache__
 preproc_frames
-saved_model
+dataset/Faceforensics/
+dataset/seq_flows/
+dataset/singular_flows/
+__pycache__/
+runs/
+*.log
