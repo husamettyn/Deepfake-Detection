@@ -8,6 +8,11 @@ This repository implements a deep learning pipeline to detect deepfake videos us
 ---
 
 ## Changelog:
+
+### v2:
+feature:
+- changed optical flow detection logic. Added generation of optical flow without face detection. This is added as a option, face detection function is stil exists. Can be call from utils.py as get_sequential_optical_flow_fd. "FD" stands for face detection.
+
 ### v1:
 fix:
 - fixed dataloader and reduced complexity

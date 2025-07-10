@@ -4,7 +4,8 @@ import numpy as np
 import os
 import cv2
 
-def get_sequential_optical_flow(video_path ,frame_size=(256, 256), max_frames=50):
+def get_sequential_optical_flow_fd(video_path ,frame_size=(256, 256), max_frames=50):
+    print("Get sequential optical flow on {}".format(video_path))
     x_expand, y_expand = 1.5, 1.8
 
     sequential_optical_flow = []
@@ -35,6 +36,51 @@ def get_sequential_optical_flow(video_path ,frame_size=(256, 256), max_frames=50
 
             optical_flow = get_farneback_flow(prvs, nxt)
             sequential_optical_flow.append(optical_flow)
+
+    return np.array(sequential_optical_flow)
+
+def get_sequential_optical_flow_no_fd(video_path, frame_size=(256, 256), max_frames=50):
+    """
+    Belirtilen videodan ardışık kare çiftleri üzerinden optik akış hesaplar.
+    
+    Args:
+        video_path (str): Video dosyasının yolu.
+        frame_size (tuple): Karelerin yeniden boyutlandırılacağı hedef boyut (genişlik, yükseklik).
+        max_frames (int): Kaç kare çifti üzerinden işlem yapılacağı.
+
+    Returns:
+        np.ndarray: Her bir kare çifti için (magnitude, angle) içeren optik akış dizisi.
+    """
+    # print(f"Calculating sequential optical flow from: {video_path}")
+    
+    sequential_optical_flow = []
+    frames = extract_frames(video_path)
+
+    for i in range(min(len(frames) - 1, max_frames)):
+        # Kareleri yeniden boyutlandır ve gri tonlamaya dönüştür
+        frame1 = cv2.resize(frames[i], frame_size)
+        frame2 = cv2.resize(frames[i + 1], frame_size)
+
+        prvs = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
+        nxt = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+
+        # Optik akışı hesapla
+        flow = cv2.calcOpticalFlowFarneback(
+            prvs, nxt, None,
+            pyr_scale=0.5,
+            levels=3,
+            winsize=15,
+            iterations=3,
+            poly_n=5,
+            poly_sigma=1.2,
+            flags=0
+        )
+
+        # Polar koordinatlara dönüştür
+        mag, ang = cv2.cartToPolar(flow[..., 0], flow[..., 1])
+        flow_2ch = np.array([mag, ang], dtype=np.float32)
+
+        sequential_optical_flow.append(flow_2ch)
 
     return np.array(sequential_optical_flow)
 

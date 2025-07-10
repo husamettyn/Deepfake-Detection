@@ -1,4 +1,4 @@
-from utils import get_sequential_optical_flow
+from utils import get_sequential_optical_flow_no_fd
 import torch
 import torch.nn as nn
 from models.vgg import vgg11_bn
@@ -53,6 +53,6 @@ def test_seq_optical_flow(sequential_optical_flow, encoder, decoder):
 if __name__ == "__main__":
     encoder, decoder = load_model()
 
-    sequential_optical_flow = get_sequential_optical_flow(args.input_path)
+    sequential_optical_flow = get_sequential_optical_flow_no_fd(args.input_path)
     test_seq_optical_flow(sequential_optical_flow, encoder, decoder)
 

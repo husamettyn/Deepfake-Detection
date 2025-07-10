@@ -10,7 +10,7 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
-from utils import get_sequential_optical_flow
+from utils import get_sequential_optical_flow_no_fd
 from env import SEQ_DIR, DATASET_DIR
 
 CATEGORIES = ['original_sequences', 'manipulated_sequences']
@@ -20,7 +20,7 @@ def process_video(task):
     cat, dataset, vid, input_root, output_root, max_frames = task
     video_path = os.path.join(input_root, cat, dataset, vid)
 
-    flows = get_sequential_optical_flow(
+    flows = get_sequential_optical_flow_no_fd(
         video_path,
         frame_size=(256, 256),
         max_frames=max_frames
