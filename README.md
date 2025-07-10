@@ -7,6 +7,22 @@ This repository implements a deep learning pipeline to detect deepfake videos us
 
 ---
 
+## Changelog:
+### v1:
+fix:
+- fixed dataloader and reduced complexity
+- simplified optical flow generation
+- training scripts made easier
+- renamed filenames
+- deleted unneccesary files and folders
+- enhanced readme.md file
+feature:
+- added flow visualizing tool, creatas a video
+- check dataset 
+- added dataset organization scripts 
+
+---
+
 ## 📋 Project Workflow
 
 The detection pipeline progresses through the following stages:
