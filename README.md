@@ -1,30 +1,37 @@
 # Deepfake Detection Using Optical Flow
 
-> **Note**: This project is intended for Linux environments.
-> This README was generated with AI assistance and carefully verified.
+> This README was generated with AI assistance.
 
-This repository implements a deep learning pipeline to detect deepfake videos using optical flow analysis. The architecture combines a **VGG11** network as a feature extractor for optical flow frames and a **Self-Attention** mechanism to model temporal dependencies across frame sequences.
+This repository implements a deep learning pipeline to detect deepfake videos using optical flow analysis. The architecture combines a **VGG11** network as a feature extractor for optical flow frames and a **Self-Attention** mechanism to model temporal dependencies across frame sequences. For more information visit original repository: https://github.com/cyshih704/Deepfake-Detection
+
+> **IMPORTANT CHANGE:** This project originally performed face detection and cropping before extracting optical flow sequences. In this version, the face detection feature has been disabled. However, it can be easily reactivated by modifying the function call on line 23 of the `1.1.generate_sew_flows.py` file. By replacing the `get_sequential_optical_flow_no_fd` function with `get_sequential_optical_flow_fd`, the face detection functionality will be enabled again. `fd` stands for Face Detection.
 
 ---
 
 ## Changelog:
 
 ### v2:
-feature:
-- changed optical flow detection logic. Added generation of optical flow without face detection. This is added as a option, face detection function is stil exists. Can be call from utils.py as get_sequential_optical_flow_fd. "FD" stands for face detection.
+
+**feature:**
+
+* changed optical flow generation logic; added generation of optical flow without face detection.
 
 ### v1:
-fix:
-- fixed dataloader and reduced complexity
-- simplified optical flow generation
-- training scripts made easier
-- renamed filenames
-- deleted unneccesary files and folders
-- enhanced readme.md file
-feature:
-- added flow visualizing tool, creatas a video
-- check dataset 
-- added dataset organization scripts 
+
+**fix:**
+
+* fixed dataloader and reduced complexity
+* simplified optical flow generation
+* made training scripts easier to use
+* renamed files
+* deleted unnecessary files and folders
+* enhanced `README.md` file
+
+**feature:**
+
+* added flow visualizing tool (creates a video)
+* dataset checking feature
+* added dataset organization scripts
 
 ---
 
@@ -50,8 +57,8 @@ The detection pipeline progresses through the following stages:
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/husamettyn/Deepfake-Detection
+cd Deepfake-Detection
 ```
 
 ### 2. Create Conda Environment & Install Dependencies
@@ -61,7 +68,7 @@ conda env create -f environment.yml
 conda activate deepfake-detection
 ```
 
-> ⚠️ The code is tested under **CUDA 12.4**. Other CUDA versions may require dependency adjustments.
+> ⚠️ The code is tested under **CUDA 12.4** on Linux. Other CUDA versions may require dependency adjustments.
 
 ---
 
